@@ -1,0 +1,12 @@
+[
+  {
+    "schema": "dbo",
+    "name": "ConvertCSVToBigIntTable",
+    "type": "Function"
+  },
+  {
+    "schema": "dbo",
+    "name": "LoanPaydowns",
+    "type": "Table"
+  }
+]
