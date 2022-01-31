@@ -42,7 +42,7 @@ BEGIN
 	
 	SELECT 
 	TOP 1  @InvoiceDescription = CASE 
-	WHEN RC.IsVATInvoice = 1 THEN N'? ? ? ? ? ? ?' ELSE N'?????? ?? ??????? ????' END
+	WHEN RC.IsVATInvoice = 1 THEN N'Ф А К Т У Р А' ELSE N'СМЕТКА за дължима сума' END
 	FROM ReceivableInvoices RI
 	JOIN ReceivableInvoiceDetails RID ON RI.Id = RID.ReceivableInvoiceId AND RID.IsActive = 1
 	JOIN ReceivableDetails RD on RD.Id = RID.ReceivableDetailId AND RD.IsActive = 1
@@ -73,25 +73,25 @@ BEGIN
 	SELECT 
 	TOP 1 
 	@PrimaryLesseeBillingAddress = 
-		CONCAT(CASE WHEN C.LongName IS NOT NULL THEN N'????. '+ C.LongName+', ' ELSE ISNULL(N'????. '+ CC.LongName+',','') END
-		,CASE WHEN S.LongName IS NOT NULL THEN N'???. '+S.LongName+', ' ELSE ISNULL(N'???. '+ SS.LongName+',','') END
-		,CASE WHEN PA.City IS NOT NULL THEN N'???. '+PA.City+', ' ELSE '' END
+		CONCAT(CASE WHEN C.LongName IS NOT NULL THEN N'Държ. '+ C.LongName+', ' ELSE ISNULL(N'Държ. '+ CC.LongName+',','') END
+		,CASE WHEN S.LongName IS NOT NULL THEN N'обл. '+S.LongName+', ' ELSE ISNULL(N'обл. '+ SS.LongName+',','') END
+		,CASE WHEN PA.City IS NOT NULL THEN N'общ. '+PA.City+', ' ELSE '' END
 		,CASE WHEN PA.Settlement IS NOT NULL THEN PA.Settlement+', ' ELSE '' END) +
 	CASE WHEN S.LongName IS NOT NULL
 	THEN 
 		CONCAT(
 		CASE WHEN PA.AddressLine1 IS NOT NULL THEN PA.AddressLine1 + ', ' ELSE '' END
-		,CASE WHEN PA.AddressLine2 IS NOT NULL THEN  N'? '+PA.AddressLine2+', ' ELSE '' END
-		,CASE WHEN PA.AddressLine3 IS NOT NULL THEN  N'??. '+PA.AddressLine3+ ', ' ELSE '' END
-		,CASE WHEN PA.Neighborhood IS NOT NULL THEN  N'??. '+PA.Neighborhood+', ' ELSE '' END
-		,CASE WHEN PA.SubdivisionOrMunicipality IS NOT NULL THEN  N'??. '+PA.SubdivisionOrMunicipality ELSE '' END)
+		,CASE WHEN PA.AddressLine2 IS NOT NULL THEN  N'№ '+PA.AddressLine2+', ' ELSE '' END
+		,CASE WHEN PA.AddressLine3 IS NOT NULL THEN  N'вх. '+PA.AddressLine3+ ', ' ELSE '' END
+		,CASE WHEN PA.Neighborhood IS NOT NULL THEN  N'ет. '+PA.Neighborhood+', ' ELSE '' END
+		,CASE WHEN PA.SubdivisionOrMunicipality IS NOT NULL THEN  N'ап. '+PA.SubdivisionOrMunicipality ELSE '' END)
 	ELSE 
 		CONCAT(
 		CASE WHEN PA.HomeAddressLine1 IS NOT NULL THEN PA.HomeAddressLine1 + ', ' ELSE '' END
-		,CASE WHEN PA.HomeAddressLine2 IS NOT NULL THEN  N'? '+PA.HomeAddressLine2+', ' ELSE '' END
-		,CASE WHEN PA.HomeAddressLine3 IS NOT NULL THEN  N'??. '+PA.HomeAddressLine3+ ', ' ELSE '' END
-		,CASE WHEN PA.HomeNeighborhood IS NOT NULL THEN  N'??. '+PA.HomeNeighborhood+', ' ELSE '' END
-		,CASE WHEN PA.HomeSubdivisionOrMunicipality IS NOT NULL THEN  N'??. '+PA.HomeSubdivisionOrMunicipality ELSE '' END)
+		,CASE WHEN PA.HomeAddressLine2 IS NOT NULL THEN  N'№ '+PA.HomeAddressLine2+', ' ELSE '' END
+		,CASE WHEN PA.HomeAddressLine3 IS NOT NULL THEN  N'вх. '+PA.HomeAddressLine3+ ', ' ELSE '' END
+		,CASE WHEN PA.HomeNeighborhood IS NOT NULL THEN  N'ет. '+PA.HomeNeighborhood+', ' ELSE '' END
+		,CASE WHEN PA.HomeSubdivisionOrMunicipality IS NOT NULL THEN  N'ап. '+PA.HomeSubdivisionOrMunicipality ELSE '' END)
 	END
 
 	FROM PartyContacts PC
@@ -111,25 +111,25 @@ BEGIN
 	SELECT 
 	TOP 1 
 	@PrimaryLesseeMainAddress = 
-		CONCAT(CASE WHEN C.LongName IS NOT NULL THEN N'????. '+ C.LongName+', ' ELSE ISNULL(N'????. '+ CC.LongName+',','') END
-		,CASE WHEN S.LongName IS NOT NULL THEN N'???. '+S.LongName+', ' ELSE ISNULL(N'???. '+ SS.LongName+',','') END
-		,CASE WHEN PA.City IS NOT NULL THEN N'???. '+PA.City+', ' ELSE '' END
+		CONCAT(CASE WHEN C.LongName IS NOT NULL THEN N'Държ. '+ C.LongName+', ' ELSE ISNULL(N'Държ. '+ CC.LongName+',','') END
+		,CASE WHEN S.LongName IS NOT NULL THEN N'обл. '+S.LongName+', ' ELSE ISNULL(N'обл. '+ SS.LongName+',','') END
+		,CASE WHEN PA.City IS NOT NULL THEN N'общ. '+PA.City+', ' ELSE '' END
 		,CASE WHEN PA.Settlement IS NOT NULL THEN PA.Settlement+', ' ELSE '' END) +
 	CASE WHEN S.LongName IS NOT NULL
 	THEN 
 		CONCAT(
 		CASE WHEN PA.AddressLine1 IS NOT NULL THEN PA.AddressLine1 + ', ' ELSE '' END
-		,CASE WHEN PA.AddressLine2 IS NOT NULL THEN  N'? '+PA.AddressLine2+', ' ELSE '' END
-		,CASE WHEN PA.AddressLine3 IS NOT NULL THEN  N'??. '+PA.AddressLine3+ ', ' ELSE '' END
-		,CASE WHEN PA.Neighborhood IS NOT NULL THEN  N'??. '+PA.Neighborhood+', ' ELSE '' END
-		,CASE WHEN PA.SubdivisionOrMunicipality IS NOT NULL THEN  N'??. '+PA.SubdivisionOrMunicipality ELSE '' END)
+		,CASE WHEN PA.AddressLine2 IS NOT NULL THEN  N'№ '+PA.AddressLine2+', ' ELSE '' END
+		,CASE WHEN PA.AddressLine3 IS NOT NULL THEN  N'вх. '+PA.AddressLine3+ ', ' ELSE '' END
+		,CASE WHEN PA.Neighborhood IS NOT NULL THEN  N'ет. '+PA.Neighborhood+', ' ELSE '' END
+		,CASE WHEN PA.SubdivisionOrMunicipality IS NOT NULL THEN  N'ап. '+PA.SubdivisionOrMunicipality ELSE '' END)
 	ELSE 
 		CONCAT(
 		CASE WHEN PA.HomeAddressLine1 IS NOT NULL THEN PA.HomeAddressLine1 + ', ' ELSE '' END
-		,CASE WHEN PA.HomeAddressLine2 IS NOT NULL THEN  N'? '+PA.HomeAddressLine2+', ' ELSE '' END
-		,CASE WHEN PA.HomeAddressLine3 IS NOT NULL THEN  N'??. '+PA.HomeAddressLine3+ ', ' ELSE '' END
-		,CASE WHEN PA.HomeNeighborhood IS NOT NULL THEN  N'??. '+PA.HomeNeighborhood+', ' ELSE '' END
-		,CASE WHEN PA.HomeSubdivisionOrMunicipality IS NOT NULL THEN  N'??. '+PA.HomeSubdivisionOrMunicipality ELSE '' END)
+		,CASE WHEN PA.HomeAddressLine2 IS NOT NULL THEN  N'№ '+PA.HomeAddressLine2+', ' ELSE '' END
+		,CASE WHEN PA.HomeAddressLine3 IS NOT NULL THEN  N'вх. '+PA.HomeAddressLine3+ ', ' ELSE '' END
+		,CASE WHEN PA.HomeNeighborhood IS NOT NULL THEN  N'ет. '+PA.HomeNeighborhood+', ' ELSE '' END
+		,CASE WHEN PA.HomeSubdivisionOrMunicipality IS NOT NULL THEN  N'ап. '+PA.HomeSubdivisionOrMunicipality ELSE '' END)
 	END
 	FROM PartyContacts PC
 	JOIN PartyContactTypes PCT ON PCT.PartyContactId = PC.Id AND PCT.IsActive = 1
@@ -158,11 +158,11 @@ BEGIN
 	SELECT 
 	TOP 1 
 	@BranchAddress = 
-		CONCAT(CASE WHEN C.LongName IS NOT NULL THEN N'????. '+ C.LongName+', ' ELSE '' END
-		,CASE WHEN S.LongName IS NOT NULL THEN N'???. '+S.LongName+', ' ELSE '' END
-		,CASE WHEN BA.City IS NOT NULL THEN N'???. '+BA.City+', ' ELSE '' END
+		CONCAT(CASE WHEN C.LongName IS NOT NULL THEN N'Държ. '+ C.LongName+', ' ELSE '' END
+		,CASE WHEN S.LongName IS NOT NULL THEN N'обл. '+S.LongName+', ' ELSE '' END
+		,CASE WHEN BA.City IS NOT NULL THEN N'общ. '+BA.City+', ' ELSE '' END
 		,CASE WHEN BA.AddressLine1 IS NOT NULL THEN BA.AddressLine1 ELSE '' END)
-	, @BranchCity = CONCAT(N'????. ', C.LongName)
+	, @BranchCity = CONCAT(N'Държ. ', C.LongName)
 	FROM LeaseFinances LF
 	JOIN LegalEntities LE ON LE.Id = LF.LegalEntityId
 	JOIN Branches B ON B.Id = LF.BranchId

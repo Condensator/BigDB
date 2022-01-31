@@ -29,7 +29,7 @@ DECLARE @TaxTypeVAT NVARCHAR(15) = 'VAT'
 DECLARE @IsDownPaymentBlendingApplicable BIT = (SELECT CASE WHEN [ApplicableForBlending] = 'Yes' THEN 1 ELSE 0 END FROM PayableTypeInvoiceConfigs WHERE PaymentType='DownPayment')
 --DECLARE @DownPaymentInvoiceLabel NVARCHAR(100) = (SELECT InvoiceLanguageLabel FROM PayableTypeInvoiceConfigs WHERE PaymentType='DownPayment')
 
-DECLARE @DownPaymentInvoiceLabel NVARCHAR(200) = N'??????? ?? ???????? ??????: {leaseNumber} ???????????? ??????: {downpaymentPercentage}'
+DECLARE @DownPaymentInvoiceLabel NVARCHAR(200) = N'Договор за финансов лизинг: {leaseNumber} Първоначална вноска: {downpaymentPercentage}'
 DECLARE @IsClosedEndLease BIT = 0, @ContractId BIGINT
 
 SELECT TOP 1 @ContractId = Entityid FROM InvoiceExtractReceivableDetails WHERE invoiceId = @invoiceid
@@ -68,8 +68,8 @@ SELECT LF.IsVAT, A.InvoiceId, A.ReceivableDetailId, QL.IsCloseEndLease, QD.DownP
 SELECT @DownPaymentInvoiceLabel = 
 CASE 
 WHEN A.IsCloseEndLease = 0 
-THEN REPLACE(REPLACE(N'??????? ?? ???????? ??????: {leaseNumber} ???????????? ??????: {downpaymentPercentage}%','{leaseNumber}',A.SequenceNumber),'{downpaymentPercentage}',A.DownPaymentPercentage)
-ELSE REPLACE(REPLACE(REPLACE(N'1. ???????? ?? ??????? ?? ???????? ??????: {leaseNumber} ???????????? ??????: {downpaymentPercentage} % (? ?????? ?? {amountAndCurrency})','{leaseNumber}',A.SequenceNumber),'{downpaymentPercentage}',A.DownPaymentPercentage),'{amountAndCurrency}',CONCAT(A.ActualDownPaymentAmount,' ',A.AlternameBillingCurrency)) END
+THEN REPLACE(REPLACE(N'Договор за финансов лизинг: {leaseNumber} Първоначална вноска: {downpaymentPercentage}%','{leaseNumber}',A.SequenceNumber),'{downpaymentPercentage}',A.DownPaymentPercentage)
+ELSE REPLACE(REPLACE(REPLACE(N'1. Доставка по договор за финансов лизинг: {leaseNumber} Първоначална вноска: {downpaymentPercentage} % (в размер на {amountAndCurrency})','{leaseNumber}',A.SequenceNumber),'{downpaymentPercentage}',A.DownPaymentPercentage),'{amountAndCurrency}',CONCAT(A.ActualDownPaymentAmount,' ',A.AlternameBillingCurrency)) END
 FROM
 @CTE_LeaseDetails A
 

@@ -28,6 +28,7 @@ CREATE TABLE [dbo].[AcceleratedBalanceDetailForLoans](
 	[UpdatedById] [bigint] NULL,
 	[UpdatedTime] [datetimeoffset](7) NULL,
 	[RowVersion] [timestamp] NOT NULL,
+	[asd] [nchar](10) COLLATE Latin1_General_CI_AS NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[AcceleratedBalancePIHistories](
 	[UpdatedTime] [datetimeoffset](7) NULL,
 	[AcceleratedBalanceDetailId] [bigint] NOT NULL,
 	[RowVersion] [timestamp] NOT NULL,
+	[zxc] [nchar](10) COLLATE Latin1_General_CI_AS NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

@@ -27,6 +27,7 @@ CREATE TABLE [dbo].[AcceleratedBalanceDetails](
 	[RowVersion] [timestamp] NOT NULL,
 	[UserId] [bigint] NULL,
 	[BusinessUnitId] [bigint] NOT NULL,
+	[qwe] [nchar](10) COLLATE Latin1_General_CI_AS NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

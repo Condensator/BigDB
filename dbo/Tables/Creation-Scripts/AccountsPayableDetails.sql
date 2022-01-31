@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[AccountsPayableDetails](
 	[MailingInstruction] [nvarchar](2) COLLATE Latin1_General_CI_AS NULL,
 	[WithholdingTaxAmount_Amount] [decimal](16, 2) NOT NULL,
 	[WithholdingTaxAmount_Currency] [nvarchar](3) COLLATE Latin1_General_CI_AS NOT NULL,
+	[zxc] [nchar](10) COLLATE Latin1_General_CI_AS NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
